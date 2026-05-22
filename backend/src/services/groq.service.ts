@@ -54,10 +54,11 @@ export class GroqService {
     return chatCompletion.choices[0].message.content;
   }
 
-  static async detectAnomalies(movements: any[]) {
+  static async detectAnomalies(movements: any[], context?: any) {
     const prompt = `
       Analyze the following inventory movements for anomalies such as unusual spikes in sales, potential theft (large adjustments), or data entry errors.
       Movements: ${JSON.stringify(movements)}
+      Inventory Context: ${JSON.stringify(context || {})}
       
       Return a JSON array of insights, each with:
       - type: "stock_alert" | "turnover" | "anomaly" | "optimization"
