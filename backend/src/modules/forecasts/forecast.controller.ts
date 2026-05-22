@@ -15,7 +15,7 @@ export class ForecastController {
     try {
       const { productId } = req.params;
       const forecast = await ForecastService.getLatestForProduct((req.org._id as any).toString(), productId as string);
-      res.json({ success: true, data: forecast });
+      res.json(forecast);
     } catch (error) {
       next(error);
     }
