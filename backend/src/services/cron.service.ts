@@ -2,8 +2,11 @@ import cron from 'node-cron';
 import { InsightService } from '../modules/insights/insight.service';
 import { ForecastService } from '../modules/forecasts/forecast.service';
 import { Product } from '../modules/products/product.model';
-import mongoose from 'mongoose';
-import { logger } from '../utils/logger';
+import winston from 'winston';
+
+const logger = winston.createLogger({
+  transports: [new winston.transports.Console()],
+});
 
 export const initCronJobs = () => {
   // Run daily at midnight

@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import * as Sentry from '@sentry/node';
 import helmet from 'helmet';
 import cors from 'cors';
-import mongoSanitize from 'express-mongo-sanitize';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
@@ -29,7 +28,6 @@ app.use(cors({ origin: env.CORS_ORIGINS, credentials: true }));
 app.use(cookieParser());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-// app.use(mongoSanitize());
 
 // 3. Logging
 if (env.NODE_ENV === 'development') {

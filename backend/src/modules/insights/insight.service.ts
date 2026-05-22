@@ -1,5 +1,4 @@
 import { Insight } from './insight.model';
-import { Product } from '../products/product.model';
 import { Movement } from '../movements/movement.model';
 import { Stock } from '../movements/stock.model';
 import { GroqService } from '../../services/groq.service';
@@ -7,7 +6,6 @@ import { GroqService } from '../../services/groq.service';
 export class InsightService {
   static async generateForOrg(orgId: string) {
     // 1. Fetch current inventory state
-    const lowStockItems = await Product.find({ orgId, isDeleted: false }); // Placeholder: need to join with stock
     const stocks = await Stock.find({ orgId }).populate('productId');
     
     // 2. Fetch recent movements (last 30 days)
@@ -30,7 +28,7 @@ export class InsightService {
     };
 
     // 4. Get insights from Groq
-    const aiInsights = await GroqService.detectAnomalies(movements); // Also use for optimization tips
+    const aiInsights = await GroqService.detectAnomalies(movements, context); // Also use for optimization tips
     
     // 5. Save and return insights
     const savedInsights = [];

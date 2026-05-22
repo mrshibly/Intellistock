@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { InsightController } from './insight.controller';
-import { authenticate } from '../../middleware/auth';
+import { requireAuth } from '../../middleware/requireAuth';
 
 const router = Router();
 
-router.use(authenticate);
+router.use(requireAuth);
 
 router.get('/', InsightController.list);
 router.patch('/:id/read', InsightController.markAsRead);
